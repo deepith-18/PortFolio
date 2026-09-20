@@ -1,22 +1,21 @@
 import React from 'react';
-// Import motion for animations
 import { motion } from 'framer-motion';
-// Icons for skills - FaReact has been added here
-import { FaPython, FaJava, FaHtml5, FaCss3Alt, FaGitAlt, FaJsSquare, FaBrain, FaReact } from 'react-icons/fa'; 
+// Added FaBug back into the imports
+import { FaPython, FaJava, FaHtml5, FaCss3Alt, FaGitAlt, FaJsSquare, FaBrain, FaReact, FaNetworkWired, FaBug } from 'react-icons/fa'; 
+// Removed SiBugzilla from here
 import { SiMongodb, SiMysql, SiPandas, SiNumpy, SiFlask, SiNextdotjs } from 'react-icons/si';
+
 function Skills() {
-    // Define the animation object once to keep the code clean (DRY principle)
     const skillAnimation = {
         scale: 1.1,
         rotateX: 10,
         rotateY: 10,
-        boxShadow: "0 5px 15px rgba(94, 234, 212, 0.3)", // A nice teal glow
+        boxShadow: "0 5px 15px rgba(94, 234, 212, 0.3)",
         transition: { type: "spring", stiffness: 300, damping: 10 }
     };
 
     return (
         <section id="skills" className="container">
-            {/* Added motion back to the heading for consistency */}
             <motion.h2 
                 className="section-heading"
                 initial={{ opacity: 0, y: 20 }}
@@ -30,11 +29,9 @@ function Skills() {
             <div className="skill-category">
                 <h3>Programming Languages</h3>
                 <div className="skills-container">
-                    {/* All spans are now motion.span with the 3D animation */}
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaPython /> Python</motion.span>
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaJava /> Java</motion.span>
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaJsSquare /> JavaScript</motion.span>
-                    {/* The "C" skill tag has been removed as requested */}
                 </div>
             </div>
             
@@ -44,8 +41,8 @@ function Skills() {
                 <div className="skills-container">
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaHtml5 /> HTML</motion.span>
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaCss3Alt /> CSS</motion.span>
-                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaJsSquare /> JavaScript</motion.span>
-                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaReact /> React</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaReact /> React</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><SiNextdotjs /> Next.js</motion.span>
                 </div>
             </div>
             
@@ -55,35 +52,40 @@ function Skills() {
                 <div className="skills-container">
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><SiMysql /> MySQL</motion.span>
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><SiMongodb /> MongoDB</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}>SQLite</motion.span>
                 </div>
             </div>
             
-            {/* Data Science & Data Engineering */}
+            {/* Data Science & AI */}
             <div className="skill-category">
-                <h3>Data Science & Data Engineering</h3>
+                <h3>Data Science & AI</h3>
                 <div className="skills-container">
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><SiPandas /> Pandas</motion.span>
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><SiNumpy /> NumPy</motion.span>
-                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}>Data Preprocessing & Feature Engineering</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaBrain /> AI & ML</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}>Data Preprocessing</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}>Hugging Face</motion.span>
                 </div>
             </div>
-            
+
             {/* Tools & Frameworks */}
             <div className="skill-category">
                 <h3>Tools & Frameworks</h3>
                 <div className="skills-container">
-                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}>Tkinter</motion.span>
-                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><SiNextdotjs /> Next.js</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaGitAlt /> Git & GitHub</motion.span>
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><SiFlask /> Flask</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}>Tkinter</motion.span>
+                    {/* Swapped SiBugzilla for FaBug */}
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaBug /> Bugzilla</motion.span>
                 </div>
             </div>
-            
-            {/* Miscellaneous */}
+
+            {/* Core Concepts */}
             <div className="skill-category">
-                <h3>Miscellaneous</h3>
+                <h3>Core Concepts</h3>
                 <div className="skills-container">
-                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaGitAlt /> Git & GitHub</motion.span>
-                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaBrain /> Hugging Face</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}><FaNetworkWired /> System Architecture</motion.span>
+                    <motion.span className="skill-tag skill-card" whileHover={skillAnimation}>DSA (Algorithms)</motion.span>
                     <motion.span className="skill-tag skill-card" whileHover={skillAnimation}>API Development</motion.span>
                 </div>
             </div>

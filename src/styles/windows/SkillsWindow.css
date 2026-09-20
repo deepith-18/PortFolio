@@ -1,0 +1,158 @@
+/* SkillsWindow.css */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Press+Start+2P&display=swap');
+
+.skills-win {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 20px;
+  position: relative;
+  overflow: auto;
+}
+
+.skills-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.skills-title-mono {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  color: #e6edf3;
+}
+
+.skills-subtitle {
+  font-size: 11px;
+  color: #4a4a4a;
+}
+
+.skills-tree {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.skill-branch {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.branch-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #21262d;
+}
+
+.branch-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.branch-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.skill-node {
+  background: #0d1117;
+  border: 1px solid #21262d;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.skill-node.unlocked:hover {
+  background: #161b22;
+}
+
+.skill-node.locked {
+  opacity: 0.4;
+}
+
+.skill-node-name {
+  font-size: 12px;
+  color: #c9d1d9;
+  min-width: 0;
+}
+
+.skill-node-bar {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.skill-pip {
+  width: 12px;
+  height: 4px;
+  background: #21262d;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.skill-lock {
+  font-size: 12px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Tooltip */
+.skill-tooltip {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: #161b22;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 14px 18px;
+  min-width: 160px;
+  animation: fadeIn 0.15s ease;
+  z-index: 10;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.skill-tooltip-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+
+.skill-tooltip-level {
+  font-size: 11px;
+  color: #8b949e;
+  margin-bottom: 6px;
+}
+
+.skill-tooltip-bar {
+  font-size: 14px;
+  color: #4a4a4a;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+
+.skill-tooltip-status {
+  font-size: 11px;
+  color: #1eda60;
+}

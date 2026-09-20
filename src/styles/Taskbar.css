@@ -1,0 +1,163 @@
+/* src/styles/Taskbar.css */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Outfit:wght@300;400;600&display=swap');
+
+/* Main Status Bar - Waybar style at the top during OS mode, or taskbar at the bottom during Recruiter view */
+.taskbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 38px;
+  background: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(33, 38, 45, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 8000;
+  font-family: 'Share Tech Mono', monospace;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+}
+
+/* Recruiter View Specific Style Overrides (Bottom aligned, full opacity) */
+.taskbar.recruiter-bottom {
+  bottom: 0 !important;
+  top: auto !important;
+  height: 44px;
+  background: #0d1117;
+  border-top: 1px solid #21262d;
+  border-bottom: none;
+}
+
+/* Left: Workspaces indicators (Fedora style) */
+.waybar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workspace-button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #8b949e;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.workspace-button:hover {
+  background: rgba(100, 255, 218, 0.1);
+  color: #64ffda;
+  border-color: #64ffda;
+}
+
+.workspace-button.active {
+  background: rgba(100, 255, 218, 0.18);
+  color: #64ffda;
+  border-color: #64ffda;
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.35);
+}
+
+/* Center: Active Window Title tag */
+.waybar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 3px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.waybar-active-title {
+  font-size: 11px;
+  color: #c9d1d9;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.waybar-active-title span {
+  color: #64ffda;
+}
+
+/* Right: Sys Tray resources and Mode controls */
+.waybar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sys-stat-badge {
+  font-size: 10px;
+  color: #8b949e;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sys-stat-badge span {
+  color: #1eda60;
+}
+
+.waybar-clock {
+  font-size: 12px;
+  color: #e6edf3;
+  letter-spacing: 0.05em;
+}
+
+/* Hyprland Sleek Toggle Buttons */
+.recruiter-btn {
+  background: rgba(100, 255, 218, 0.05);
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  color: #64ffda;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.05);
+}
+
+.recruiter-btn:hover {
+  background: rgba(100, 255, 218, 0.15);
+  color: #ffffff;
+  border-color: #64ffda;
+  box-shadow: 0 0 12px rgba(100, 255, 218, 0.2);
+}
+
+.recruiter-btn.active {
+  background: rgba(255, 64, 129, 0.1);
+  color: #ff4081;
+  border-color: #ff4081;
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.2);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .waybar-center {
+    display: none !important;
+  }
+  .sys-stat-badge {
+    display: none !important;
+  }
+  .taskbar {
+    padding: 0 10px !important;
+  }
+}

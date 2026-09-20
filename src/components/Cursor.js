@@ -7,12 +7,19 @@ const PARTICLE_COUNT = 18;
 const PARTICLE_SPREAD = 120;
 
 // A single Star Particle component
+const COLORS = ['#ffffff', '#6ea8ff', '#5eead4', '#f5f5f7'];
+
 const Particle = ({ id, x, y, removeParticle }) => {
   // Generate unique random properties for each particle's animation
   const randomX = (Math.random() - 0.5) * PARTICLE_SPREAD;
   const randomY = (Math.random() - 0.5) * PARTICLE_SPREAD;
   const randomDuration = 0.6 + Math.random() * 0.9;
   const randomRotate = Math.random() * 360;
+
+  // Select a random premium color for the star trail particle
+  const randomColor = React.useMemo(() => {
+    return COLORS[Math.floor(Math.random() * COLORS.length)];
+  }, []);
 
   return (
     <motion.div
@@ -52,9 +59,7 @@ const Particle = ({ id, x, y, removeParticle }) => {
       >
         <path
           d="M12 0L14.098 9.90201L24 12L14.098 14.098L12 24L9.90199 14.098L0 12L9.90199 9.90201L12 0Z"
-          // --- KEY CHANGE IS HERE ---
-          // We replaced the random HSL color with "white"
-          fill="white"
+          fill={randomColor}
         />
       </svg>
     </motion.div>

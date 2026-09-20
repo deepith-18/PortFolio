@@ -1,0 +1,76 @@
+/* AdditionalInfoWindow.css */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Press+Start+2P&display=swap');
+
+.addinfo-win {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-family: 'Share Tech Mono', monospace;
+  background: #0d1117;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.addinfo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.addinfo-card {
+  background: #090d13;
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 16px 20px;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.addinfo-card:hover {
+  transform: translateY(-2px);
+  border-color: #30363d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.addinfo-card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px dashed #21262d;
+  padding-bottom: 10px;
+}
+
+.addinfo-card h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-list li {
+  font-size: 12px;
+  color: #8b949e;
+  position: relative;
+  padding-left: 12px;
+}
+
+.card-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #58a6ff;
+  font-size: 10px;
+}

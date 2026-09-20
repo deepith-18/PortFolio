@@ -30,7 +30,7 @@ const Background = () => {
         },
       },
       color: {
-        value: ['#ffffff', '#5eead4', '#bbbbbb'], // White, your accent, and light gray stars
+        value: ['#ffffff', '#6ea8ff', '#5eead4', '#a5b4fc'], // Bright galaxy stars (white, blue, mint, indigo)
       },
       shape: {
         type: 'circle',

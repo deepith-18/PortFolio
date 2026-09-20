@@ -1,4 +1,4 @@
-// src/components/Contact.js
+// src/components/Contact.js - Simplified Contact Section
 import React from 'react';
 
 function Contact() {

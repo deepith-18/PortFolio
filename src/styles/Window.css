@@ -1,0 +1,216 @@
+/* src/styles/Window.css */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+/* Tiling OS Window Frame */
+.os-window {
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 17, 23, 0.72) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  font-family: 'Share Tech Mono', monospace;
+  transition: border-color 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              box-shadow 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+              transform 0.2s ease;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  will-change: transform;
+}
+
+/* Hyprland Signature Active Border Glow */
+.os-window.active-focused {
+  border-color: #64ffda !important;
+  box-shadow: 0 0 25px rgba(100, 255, 218, 0.3), 
+              0 0 5px rgba(100, 255, 218, 0.2), 
+              inset 0 0 1px rgba(100, 255, 218, 0.5) !important;
+  transform: scale(1.002);
+}
+
+/* Header/Title Bar (kitty terminal style) */
+.os-window-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(9, 11, 16, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Dot Windows Control (Hyprland style) */
+.os-window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.os-btn-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.15s;
+}
+
+.os-btn-dot:hover {
+  opacity: 0.8;
+}
+
+.os-btn-dot.close {
+  background-color: #f38ba8; /* Fedora / Catppuccin red */
+}
+
+.os-btn-dot.minimize {
+  background-color: #f9e2af; /* Yellow */
+}
+
+.os-btn-dot.maximize {
+  background-color: #a6e3a1; /* Green */
+}
+
+/* Header Text styling */
+.os-window-title {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  color: #a6adc8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.os-window-title .window-accent {
+  color: #64ffda;
+}
+
+/* Body container scrollable */
+.os-window-body {
+  flex-grow: 1;
+  padding: 16px;
+  overflow-y: auto;
+  color: #c9d1d9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* For terminal programs body should remain mono */
+.terminal-body {
+  font-family: 'Share Tech Mono', monospace !important;
+  background-color: rgba(9, 11, 16, 0.4);
+}
+
+/* Custom Scrollbar for premium feel */
+.os-window-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.os-window-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+}
+
+.os-window-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.os-window-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 255, 218, 0.2);
+}
+
+@media (max-width: 768px) {
+  .os-window {
+    border-radius: 0; /* edge-to-edge on mobile */
+  }
+
+  .os-window-body {
+    padding: 0 !important; /* Inner windows manage their own padding */
+    padding-bottom: 0 !important;
+    overflow: hidden; /* Each inner component handles its own scroll */
+  }
+
+  .os-window-titlebar {
+    padding: 6px 10px;
+  }
+
+  .os-window-title {
+    font-size: 10px;
+    /* Truncate long titles on mobile */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 50vw;
+  }
+
+  /* Hide the tiny 11x11px dot buttons on mobile — replaced by text buttons */
+  .os-window-controls {
+    display: none !important;
+  }
+
+  /* Hide desktop spacer on mobile */
+  .os-window-desktop-spacer {
+    display: none !important;
+  }
+
+  /* Large, tappable mobile close/minimize buttons */
+  .os-window-mobile-controls {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .os-mobile-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 8px;
+    transition: all 0.15s;
+  }
+
+  .os-mobile-btn.close {
+    background: rgba(243, 139, 168, 0.15);
+    color: #f38ba8;
+    border-color: rgba(243, 139, 168, 0.4);
+  }
+  .os-mobile-btn.close:active {
+    background: rgba(243, 139, 168, 0.35);
+  }
+
+  .os-mobile-btn.minimize {
+    background: rgba(249, 226, 175, 0.12);
+    color: #f9e2af;
+    border-color: rgba(249, 226, 175, 0.3);
+  }
+  .os-mobile-btn.minimize:active {
+    background: rgba(249, 226, 175, 0.3);
+  }
+}
+
+/* On desktop, always hide the mobile controls */
+@media (min-width: 769px) {
+  .os-window-mobile-controls {
+    display: none !important;
+  }
+  .os-window-desktop-spacer {
+    width: 50px;
+  }
+}

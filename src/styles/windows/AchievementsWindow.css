@@ -1,0 +1,87 @@
+/* AchievementsWindow.css */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Press+Start+2P&display=swap');
+
+.ach-win {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Share Tech Mono', monospace;
+  overflow: hidden;
+}
+
+.ach-header {
+  padding: 14px 20px;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ach-count {
+  font-size: 11px;
+  color: #8b949e;
+}
+
+.ach-progress-bar {
+  height: 4px;
+  background: #21262d;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ach-progress-fill {
+  height: 100%;
+  background: #1eda60;
+  border-radius: 2px;
+  transition: width 1s ease;
+}
+
+.ach-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ach-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #21262d;
+  border-left: 3px solid transparent;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.15s;
+}
+
+.ach-card.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ach-card:hover { background: #0d1117; }
+
+.ach-card.rarity-gold   { border-left-color: #ffd700; }
+.ach-card.rarity-purple { border-left-color: #b060ff; }
+.ach-card.rarity-blue   { border-left-color: #4da6ff; }
+.ach-card.rarity-secret { border-left-color: #30363d; }
+.ach-card.locked        { opacity: 0.3 !important; filter: grayscale(1); }
+.ach-card.locked.visible { opacity: 0.3; }
+
+.ach-icon { font-size: 1.6rem; flex-shrink: 0; }
+
+.ach-body { flex: 1; }
+.ach-title { font-size: 13px; color: #e6edf3; margin-bottom: 3px; }
+.ach-desc  { font-size: 11px; color: #8b949e; }
+
+.ach-badge {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.rarity-badge-gold   { color: #ffd700; }
+.rarity-badge-purple { color: #b060ff; }
+.rarity-badge-blue   { color: #4da6ff; }

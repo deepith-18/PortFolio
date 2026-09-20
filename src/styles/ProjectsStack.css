@@ -1,0 +1,218 @@
+/* src/styles/ProjectsStack.css */
+
+.projects-stack-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6vh; /* Creates spacing between sticky items */
+  padding: 4vh 0;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.project-sticky-wrapper {
+  position: sticky;
+  top: 15vh; /* All cards stack at 15% from the viewport top */
+  width: 100%;
+  padding-bottom: 50px; /* Spacing for the next card to overlap cleanly */
+  will-change: transform;
+}
+
+/* Redesigned Premium Stack Card Layout */
+.project-stack-card {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 28px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  width: 100%;
+  min-height: 480px;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transform-origin: top center;
+  position: relative;
+}
+
+/* Dark mode theme adjustments inside recruiter-view if applicable */
+[data-theme="dark"] .project-stack-card {
+  background-color: #161617;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.project-stack-card:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] .project-stack-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Image container cover half */
+.project-stack-image-box {
+  width: 45%;
+  position: relative;
+  overflow: hidden;
+  background-color: #F6F6F6;
+}
+
+[data-theme="dark"] .project-stack-image-box {
+  background-color: #1c1c1e;
+}
+
+.project-stack-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.project-stack-card:hover .project-stack-img {
+  transform: scale(1.05);
+}
+
+/* Content Container half */
+.project-stack-info {
+  width: 55%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.project-stack-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.project-stack-desc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme="dark"] .project-stack-desc {
+  color: #aaa;
+}
+
+.project-stack-points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+.project-stack-points li {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+[data-theme="dark"] .project-stack-points li {
+  color: #ccc;
+}
+
+.project-stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.project-stack-tag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: #F1F1F1;
+  color: #333;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+[data-theme="dark"] .project-stack-tag {
+  background-color: #2c2c2e;
+  color: #eee;
+}
+
+.project-stack-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-stack-btn {
+  font-family: 'Space Grotesk', sans-serif;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background-color: #000000;
+  color: #FFFFFF;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .project-stack-btn {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.project-stack-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Stack Card Dark Overlay receding indicator */
+.project-stack-dimmer {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .projects-stack-container {
+    gap: 30px;
+    padding: 2vh 0;
+  }
+  .project-sticky-wrapper {
+    position: relative !important;
+    top: auto !important;
+    padding-bottom: 0 !important;
+  }
+  .project-stack-card {
+    flex-direction: column;
+    min-height: auto;
+    border-radius: 20px;
+  }
+  .project-stack-image-box {
+    width: 100%;
+    height: 220px;
+  }
+  .project-stack-info {
+    width: 100%;
+    padding: 2rem 1.5rem;
+  }
+}

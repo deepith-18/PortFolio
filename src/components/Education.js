@@ -1,4 +1,4 @@
-// src/components/Education.js (Updated)
+// src/components/Education.js - Simplified Education Section
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -37,15 +37,15 @@ function Education() {
                 <motion.div className="education-item" variants={itemVariants}>
                     <h3 className="project-title">ACS College Of Engineering (2022-2026)</h3>
                     <p>B.Tech in Computer Science and Engineering <br />
-                        GPA: 9.17</p>
+                        CGPA: 9.31</p>
                 </motion.div>
                 <motion.div className="education-item" variants={itemVariants}>
-                    <h3 className="project-title">Jawahar Navodaya Vidyalaya (2021-2022)</h3>
-                    <p>+1 & +2 Courses <br />
+                    <h3 className="project-title">Jawahar Navodaya Vidyalaya (2020-2022)</h3>
+                    <p> +2 Courses <br />
                         Percentage: 83%</p>
                 </motion.div>
                 <motion.div className="education-item" variants={itemVariants}>
-                    <h3 className="project-title">Adarsha Vidyalaya (2015-2020)</h3>
+                    <h3 className="project-title">Adarsha Vidyalaya (2019-2020)</h3>
                     <p>SSLC <br />
                         Percentage: 92%</p>
                 </motion.div>

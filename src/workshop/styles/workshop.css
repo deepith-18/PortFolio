@@ -1,0 +1,805 @@
+/* src/workshop/styles/workshop.css — CYBERPUNK / STUDIO SCI-FI HUD */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+.workshop-root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background-color: #08090d;
+  color: #f1f5f9;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  user-select: none;
+}
+
+/* Transitions */
+.workshop-fade-in {
+  animation: wsFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.workshop-fade-out {
+  animation: wsFadeOut 0.4s ease-in forwards;
+}
+
+@keyframes wsFadeIn {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes wsFadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.98); }
+}
+
+/* ============================================================
+   CYBERPUNK / STUDIO HUD TOPBAR
+   ============================================================ */
+.workshop-hud-topbar {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  right: 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(13, 16, 24, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(94, 234, 212, 0.2);
+  border-radius: 12px;
+  padding: 0 16px;
+  z-index: 150;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 16px rgba(94, 234, 212, 0.08);
+}
+
+/* Back to Portfolio Button */
+.workshop-hud-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(94, 234, 212, 0.1);
+  border: 1px solid rgba(94, 234, 212, 0.4);
+  color: #5eead4;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.02em;
+}
+
+.workshop-hud-back-btn:hover {
+  background: rgba(94, 234, 212, 0.22);
+  border-color: #5eead4;
+  transform: translateX(-2px);
+  box-shadow: 0 0 15px rgba(94, 234, 212, 0.35);
+}
+
+.hud-back-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+.workshop-hud-back-btn:hover .hud-back-arrow {
+  transform: translateX(-3px);
+}
+
+/* Status Center Badge */
+.workshop-hud-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hud-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Controls Right Group */
+.workshop-hud-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Audio Toggle Button */
+.workshop-hud-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.workshop-hud-audio-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(94, 234, 212, 0.3);
+  color: #fff;
+}
+
+.workshop-hud-audio-btn.active {
+  background: rgba(94, 234, 212, 0.12);
+  border-color: rgba(94, 234, 212, 0.4);
+  color: #5eead4;
+}
+
+/* Animated Equalizer Wave Bars */
+.hud-equalizer-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.hud-eq-bar {
+  width: 2px;
+  background: #5eead4;
+  border-radius: 1px;
+}
+
+.hud-eq-bar.b1 { height: 6px; animation: eqBounce 0.8s ease infinite alternate; }
+.hud-eq-bar.b2 { height: 11px; animation: eqBounce 0.6s ease infinite alternate-reverse; }
+.hud-eq-bar.b3 { height: 8px; animation: eqBounce 0.7s ease infinite alternate; }
+
+@keyframes eqBounce {
+  0% { height: 3px; }
+  100% { height: 12px; }
+}
+
+/* Controls Guide Pill */
+.workshop-hud-guide-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.hud-guide-key {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hud-guide-separator {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================================
+   INTRO OVERLAY SCI-FI GLASS CARD
+   ============================================================ */
+.workshop-intro {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(17, 24, 39, 0.92) 0%, rgba(8, 9, 13, 0.98) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.workshop-intro.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.workshop-intro-glasscard {
+  max-width: 520px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(94, 234, 212, 0.25);
+  border-radius: 16px;
+  padding: 40px 36px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(94, 234, 212, 0.1);
+  animation: introPop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes introPop {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.workshop-intro-tag {
+  display: inline-block;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: #5eead4;
+  background: rgba(94, 234, 212, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(94, 234, 212, 0.25);
+  margin-bottom: 16px;
+}
+
+.workshop-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+}
+
+.workshop-subtitle {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0 0 28px 0;
+}
+
+.workshop-intro-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.workshop-enter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+  border: none;
+  color: #fff;
+  padding: 14px 28px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(20, 184, 166, 0.35);
+}
+
+.workshop-enter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(20, 184, 166, 0.5);
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+}
+
+.workshop-enter-btn .btn-arrow {
+  transition: transform 0.2s ease;
+}
+.workshop-enter-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.workshop-back-secondary-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94a3b8;
+  padding: 11px 20px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.workshop-back-secondary-btn:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.workshop-intro-instructions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: #64748b;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 18px;
+}
+
+.pointer-lock-prompt {
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 12px 24px;
+  border-radius: 20px;
+  color: #fff;
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border: 1px solid rgba(94, 234, 212, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   INTERACT PROMPT — FUTURISTIC GLOW PILL
+   ============================================================ */
+.interact-prompt {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(94, 234, 212, 0.5);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 120;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(94, 234, 212, 0.3);
+  animation: promptFloat 2s ease-in-out infinite alternate;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@keyframes promptFloat {
+  0% { transform: translate(-50%, 0); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(94, 234, 212, 0.2); }
+  100% { transform: translate(-50%, -6px); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 25px rgba(94, 234, 212, 0.45); }
+}
+
+.interact-prompt kbd {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #5eead4;
+  border: 1px solid rgba(94, 234, 212, 0.6);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   INFO & PROJECT PANELS — SCI-FI GLASS MODAL
+   ============================================================ */
+.workshop-blur {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 7, 12, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 220;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.workshop-blur.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.project-panel-overlay,
+.info-panel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 230;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: rgba(3, 7, 18, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: panelFadeIn 0.2s ease-out;
+}
+
+@keyframes panelFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.project-panel,
+.info-panel {
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 20px;
+  padding: 28px 32px;
+  max-width: 900px;
+  width: 100%;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  color: #fff;
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.85), 0 0 35px rgba(56, 189, 248, 0.2);
+  animation: panelScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes panelScaleUp {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.project-panel-close,
+.info-panel-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.project-panel-close:hover,
+.info-panel-close:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.project-panel-header {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.project-panel-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+
+.project-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* ── Project Grid & Cards ─────────────────────────────────────── */
+.info-project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 680px) {
+  .info-project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-project-card {
+  background: rgba(30, 41, 59, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.info-project-card:hover {
+  transform: translateY(-4px);
+  background: rgba(30, 41, 59, 0.95);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.25);
+}
+
+.info-project-thumb-wrap {
+  width: 100%;
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+  background: #090d16;
+}
+
+.info-project-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.info-project-card:hover .info-project-thumb {
+  transform: scale(1.05);
+}
+
+.info-project-card-badge {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  color: #38bdf8;
+  font-family: monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.info-project-card-body {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.info-project-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0 0 8px 0;
+  line-height: 1.35;
+}
+
+.info-project-card-desc {
+  font-size: 0.84rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0 0 14px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.info-project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.info-project-card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 10px;
+}
+
+.info-project-view-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #38bdf8;
+  transition: transform 0.2s ease;
+}
+
+.info-project-card:hover .info-project-view-link {
+  transform: translateX(4px);
+  color: #7dd3fc;
+}
+
+/* ── Project Detail View ──────────────────────────────────────── */
+.project-detail-view {
+  width: 100%;
+}
+
+.info-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.info-back-btn:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: #38bdf8;
+  color: #fff;
+}
+
+.project-detail-hero {
+  width: 100%;
+  height: 240px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #090d16;
+}
+
+.project-detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-detail-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.7), transparent 60%);
+}
+
+.project-detail-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 10px 0;
+}
+
+.project-detail-desc {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.project-detail-subhead {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  margin: 0 0 10px 0;
+}
+
+.project-detail-points ul {
+  margin: 0 0 20px 0;
+  padding-left: 20px;
+  color: #e2e8f0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.project-detail-points li {
+  margin-bottom: 6px;
+}
+
+.project-detail-tags-wrap {
+  margin-bottom: 24px;
+}
+
+.project-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-tag {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #7dd3fc;
+  padding: 4px 11px;
+  border-radius: 20px;
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.project-tag-more {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 0.74rem;
+}
+
+.project-link-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0284c7, #06b6d4);
+  color: #fff;
+  padding: 11px 24px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+}
+
+.project-link-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(2, 132, 199, 0.6);
+  color: #fff;
+}
+
+/* Hide obsolete scattered buttons */
+.workshop-theme-btn,
+.workshop-mute-btn,
+.workshop-mode-switch {
+  display: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .workshop-hud-topbar {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 50px;
+    padding: 0 10px;
+  }
+  .workshop-hud-status-badge {
+    display: none;
+  }
+  .workshop-hud-guide-pill {
+    display: none;
+  }
+  .workshop-hud-back-btn {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+}

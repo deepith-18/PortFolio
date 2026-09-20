@@ -1,0 +1,152 @@
+/* src/styles/SpeedLoader.css */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Outfit:wght@300;400;600&display=swap');
+
+/* ── Boot Screen Shell ─────────────────────────────────────────── */
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  background: #080a0f;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Share Tech Mono', monospace;
+  /* Fade in on mount */
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  animation: bootFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes bootFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.boot-screen.boot-fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ── Subtle CRT Scanlines overlay ─────────────────────────────── */
+.boot-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.18) 2px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+}
+
+/* ── Center Content ────────────────────────────────────────────── */
+.boot-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── Hexagon Logo ─────────────────────────────────────────────── */
+.boot-logo {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: hexPulse 1.2s ease-in-out infinite;
+}
+
+.boot-hex-svg {
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(0 0 12px rgba(100, 255, 218, 0.55));
+}
+
+.boot-hex-outline {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: hexDraw 0.7s ease-out 0.1s forwards;
+}
+
+@keyframes hexDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes hexPulse {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(100, 255, 218, 0.5)); }
+  50%       { filter: drop-shadow(0 0 22px rgba(100, 255, 218, 0.85)); }
+}
+
+/* ── OS Name ──────────────────────────────────────────────────── */
+.boot-os-name {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: #e6edf3;
+  text-shadow: 0 0 20px rgba(100, 255, 218, 0.25);
+  animation: textAppear 0.4s ease-out 0.3s both;
+}
+
+@keyframes textAppear {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Boot Message ─────────────────────────────────────────────── */
+.boot-message {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: #64ffda;
+  text-transform: uppercase;
+  min-height: 18px;
+  animation: textAppear 0.3s ease-out 0.5s both;
+  transition: opacity 0.15s ease;
+}
+
+/* ── Pulsing Dots ─────────────────────────────────────────────── */
+.boot-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  animation: textAppear 0.3s ease-out 0.6s both;
+}
+
+.boot-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #64ffda;
+  opacity: 0.3;
+  animation: dotBounce 0.9s ease-in-out infinite;
+}
+
+@keyframes dotBounce {
+  0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
+  40%           { opacity: 1;    transform: scale(1.2); box-shadow: 0 0 6px #64ffda; }
+}
+
+/* ── Footer ───────────────────────────────────────────────────── */
+.boot-footer {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #3d4451;
+  white-space: nowrap;
+  z-index: 2;
+  animation: textAppear 0.4s ease-out 0.7s both;
+}

@@ -1,0 +1,552 @@
+/* src/styles/Desktop.css */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+.desktop {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #080a0f; /* Fedora elegant dark carbon */
+  box-sizing: border-box;
+}
+
+/* Glassmorphic Real OS Desktop Shortcuts Grid */
+.desktop-icons {
+  position: absolute;
+  top: 70px; /* clear top Waybar status bar */
+  left: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 95px);
+  gap: 20px;
+  z-index: 2; /* Sits behind windows but above wallpaper */
+  pointer-events: auto;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 12px 8px;
+  border-radius: 14px;
+  background: rgba(15, 17, 23, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  position: relative;
+  user-select: none;
+}
+
+.desktop-icon:hover {
+  background: rgba(100, 255, 218, 0.1);
+  border-color: rgba(100, 255, 218, 0.3);
+  box-shadow: 0 8px 25px rgba(100, 255, 218, 0.18);
+  transform: translateY(-4px) scale(1.04);
+}
+
+.desktop-icon:active {
+  background: rgba(100, 255, 218, 0.18);
+  transform: translateY(-1px) scale(0.98);
+}
+
+.desktop-icon-img {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.desktop-icon:hover .desktop-icon-img {
+  transform: scale(1.08);
+}
+
+.desktop-icon-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  font-weight: bold;
+  color: #cdd6f4;
+  text-align: center;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.85);
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* Authentic realistic link shortcut arrow badge */
+.desktop-icon-shortcut-arrow {
+  position: absolute;
+  bottom: 30px;
+  left: 12px;
+  width: 13px;
+  height: 13px;
+  background: rgba(10, 12, 17, 0.9);
+  border: 1.5px solid rgba(100, 255, 218, 0.85);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+
+.desktop-icon-shortcut-arrow::before {
+  content: '↗';
+  font-size: 9px;
+  font-weight: 900;
+  color: #64ffda;
+  line-height: 1;
+}
+
+/* Glassmorphic OS Bottom Application Dock Panel */
+.os-dock-container {
+  position: fixed; /* Use fixed positioning so it overlays fixed windows! */
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 16, 23, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.55), 
+              0 0 1px rgba(255, 255, 255, 0.15) inset;
+  z-index: 999999 !important; /* Float on very top of maximized windows! */
+  pointer-events: auto;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.os-dock-item {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.os-dock-item:hover {
+  transform: translateY(-8px) scale(1.15);
+  background: rgba(100, 255, 218, 0.1);
+  border-color: rgba(100, 255, 218, 0.3);
+}
+
+.os-dock-item:active {
+  transform: translateY(-2px) scale(0.95);
+}
+
+/* Active running dots below dock item */
+.os-dock-dot {
+  position: absolute;
+  bottom: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #64ffda;
+  box-shadow: 0 0 6px #64ffda, 0 0 2px #64ffda;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.os-dock-dot.focused {
+  background-color: #1eda60;
+  box-shadow: 0 0 8px #1eda60, 0 0 2px #1eda60;
+  width: 10px;
+  border-radius: 2px;
+}
+
+/* Live Conky Desktop System Dashboard Widget */
+.desktop-conky-widget {
+  position: absolute;
+  right: 40px;
+  top: 75px;
+  width: 290px;
+  background: rgba(15, 17, 23, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  font-family: 'Share Tech Mono', monospace;
+  color: #c9d1d9;
+  z-index: 1; /* Renders behind active window splits but above wallpaper */
+  pointer-events: none;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.conky-clock {
+  font-size: 34px;
+  font-weight: bold;
+  color: #1eda60;
+  text-shadow: 0 0 10px rgba(30, 218, 96, 0.35);
+  margin-bottom: 2px;
+  letter-spacing: 0.05em;
+}
+
+.conky-date {
+  font-size: 11px;
+  color: #8b949e;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.conky-stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.conky-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.conky-label {
+  color: #8b949e;
+}
+
+.conky-value {
+  color: #64ffda;
+  font-weight: bold;
+}
+
+.conky-quest-card {
+  margin-top: 18px;
+  background: rgba(100, 255, 218, 0.04);
+  border: 1px solid rgba(100, 255, 218, 0.08);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.conky-quest-title {
+  font-size: 11px;
+  font-weight: bold;
+  color: #1eda60;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.conky-quest-desc {
+  font-size: 10px;
+  color: #8b949e;
+  line-height: 1.4;
+}
+
+/* Master-Stack Tiling Container Grid */
+.desktop-tiling-area {
+  position: absolute;
+  top: 38px; /* Clears top status Waybar */
+  left: 0;
+  right: 0;
+  bottom: 85px; /* Leaves clear space for the bottom App Dock */
+  padding: 14px;
+  display: flex;
+  gap: 14px; /* Gaps between window partitions */
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 5; /* Render tiles above the dashboard and wallpaper icons */
+  pointer-events: none;
+}
+
+/* Ensure tiled windows have interactive pointer events */
+.desktop-tiling-area > * {
+  pointer-events: auto;
+}
+
+/* Tiling flex columns */
+.tiling-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 14px;
+  height: 100%;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+/* Wofi App Launcher Modal styles */
+.wofi-launcher-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(2, 4, 9, 0.55);
+  backdrop-filter: blur(8px);
+  z-index: 90000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.18s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.wofi-launcher-box {
+  width: 420px;
+  max-width: 90%;
+  background: rgba(17, 20, 28, 0.9);
+  border: 2px solid rgba(100, 255, 218, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
+              0 0 30px rgba(100, 255, 218, 0.1);
+  padding: 20px;
+  font-family: 'Share Tech Mono', monospace;
+  box-sizing: border-box;
+  animation: scaleIn 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.wofi-search-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.wofi-search-input:focus {
+  border-color: #64ffda;
+  box-shadow: 0 0 12px rgba(100, 255, 218, 0.25);
+}
+
+.wofi-apps-list {
+  margin-top: 16px;
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wofi-app-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #cdd6f4;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  width: 100%;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+}
+
+.wofi-app-item:hover {
+  background: rgba(100, 255, 218, 0.1);
+  border-color: rgba(100, 255, 218, 0.3);
+  color: #64ffda;
+  transform: translateX(3px);
+}
+
+.wofi-app-item-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wofi-app-item-desc {
+  color: #7f849c;
+  font-size: 10px;
+  margin-left: auto;
+  text-transform: uppercase;
+}
+
+/* Notifications panel overlay placement */
+.os-notifications {
+  position: fixed;
+  bottom: 90px; /* offset clear above App Dock */
+  right: 20px;
+  z-index: 95000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.os-notif {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-left: 3px solid #64ffda;
+  color: #c9d1d9;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  animation: notifIn 0.3s ease, notifOut 0.4s ease 2.8s forwards;
+}
+
+/* Animations declarations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes notifIn {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes notifOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(120%); opacity: 0; }
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  /* Hide the Conky system widget — too wide for mobile */
+  .desktop-conky-widget {
+    display: none !important;
+  }
+
+  /* ── Desktop Icon Grid (Home Screen) ──
+     Visible only on home screen (no windows open).
+     When any window is active, it is hidden via .has-active-window.
+     5 columns × 2 rows = all 10 icons displayed.
+  */
+  .desktop-icons {
+    position: absolute;
+    top: 42px !important;   /* 38px taskbar + 4px gap */
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 4px !important;
+    padding: 0 6px !important;
+    max-height: none !important;
+    overflow: visible !important;
+    z-index: 6 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hide icon grid when any window is open — window takes full space */
+  .desktop.has-active-window .desktop-icons {
+    display: none !important;
+  }
+
+  .desktop-icon {
+    padding: 6px 2px !important;
+    gap: 3px !important;
+    border-radius: 10px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .desktop-icon-img {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .desktop-icon-img svg {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .desktop-icon-label {
+    font-size: 8px !important;
+    line-height: 1.1 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .desktop-icon-shortcut-arrow {
+    display: none !important;
+  }
+
+  /* ── Bottom App Dock ── */
+  .os-dock-container {
+    bottom: 8px !important;
+    padding: 5px 8px !important;
+    gap: 4px !important;
+    max-width: 98vw !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    border-radius: 16px !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .os-dock-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .os-dock-item {
+    width: 30px !important;
+    height: 30px !important;
+    flex-shrink: 0 !important;
+    border-radius: 8px !important;
+  }
+
+  .os-dock-item svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  /* Disable the large hover lift on mobile (touch) */
+  .os-dock-item:hover {
+    transform: none !important;
+  }
+
+  /* ── Tiling Window Area ──
+     When a window is open, icons are hidden.
+     The window fills the space from just below the taskbar
+     to just above the dock. Full usable height.
+  */
+  .desktop-tiling-area {
+    top: 38px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 56px !important;
+    padding: 4px !important;
+    gap: 0 !important;
+    z-index: 5 !important;
+  }
+
+  /* Notifications: move above the shorter dock */
+  .os-notifications {
+    bottom: 66px !important;
+    right: 10px !important;
+  }
+}
+
+.desktop-fading-out {
+  opacity: 0 !important;
+  transform: scale(0.92) !important;
+  filter: blur(10px) !important;
+  pointer-events: none !important;
+  transition: opacity 1s cubic-bezier(0.25, 0.8, 0.25, 1),
+              transform 1s cubic-bezier(0.25, 0.8, 0.25, 1),
+              filter 1s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}

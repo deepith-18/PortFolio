@@ -1,0 +1,486 @@
+/* src/styles/CareerUniverse.css */
+/* Phase 1 — Skill Galaxy Only */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ─────────────────────────────────────────────
+   Container & Canvas
+───────────────────────────────────────────── */
+
+.universe-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #020508;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Nebula radial glow overlay — CSS layer for extra atmospheric depth */
+.universe-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 55% 45% at 18% 30%, rgba(88, 28, 220, 0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 35% at 80% 55%, rgba(6, 182, 212, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 35% at 55% 75%, rgba(190, 30, 130, 0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 30% 50% at 50% 90%, rgba(8, 15, 30, 0.7) 0%, transparent 80%);
+}
+
+.universe-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 0;
+}
+
+/* ─────────────────────────────────────────────
+   Floating Labels
+───────────────────────────────────────────── */
+
+.universe-labels-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.node-floating-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(59, 130, 246, 0.75);      /* Fedora Blue */
+  background: rgba(3, 8, 16, 0.65);
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  padding: 3px 8px;
+  border-radius: 3px;
+  pointer-events: none;
+  transition: opacity 0.3s ease, color 0.25s ease, border-color 0.25s ease;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+}
+
+.node-floating-label.core-node {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(100, 255, 218, 0.9);      /* Cyan */
+  border-color: rgba(100, 255, 218, 0.35);
+  background: rgba(3, 8, 16, 0.75);
+  letter-spacing: 0.18em;
+}
+
+.node-floating-label.active {
+  color: #ffffff;
+  border-color: rgba(100, 255, 218, 0.7);
+  background: rgba(3, 8, 16, 0.88);
+  box-shadow: 0 0 12px rgba(100, 255, 218, 0.25);
+}
+
+/* ─────────────────────────────────────────────
+   Welcome Overlay
+───────────────────────────────────────────── */
+
+.universe-welcome-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: radial-gradient(ellipse at center, rgba(3, 8, 16, 0.72) 0%, rgba(3, 8, 16, 0.92) 100%);
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 10;
+}
+
+.universe-welcome-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.universe-welcome-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.universe-welcome-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(13px, 1.6vw, 16px);
+  font-weight: 400;
+  color: rgba(100, 255, 218, 0.8);
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.universe-welcome-hint {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.click-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: rgba(59, 130, 246, 0.75);
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 6px;
+  background: rgba(59, 130, 246, 0.06);
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.click-alt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(100, 255, 218, 0.75);
+  letter-spacing: 0.06em;
+}
+
+.drag-hint {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.04em;
+}
+
+.wasd-or {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.06em;
+  font-family: 'Inter', sans-serif;
+}
+
+/* WASD Key Grid */
+.wasd-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.wasd-row {
+  display: flex;
+  gap: 4px;
+}
+
+.wasd-key {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  border-radius: 6px;
+  box-shadow:
+    0 0 10px rgba(59, 130, 246, 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  animation: key-pulse 2.4s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────
+   Node HUD Card
+───────────────────────────────────────────── */
+
+.universe-node-hud {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  max-width: 420px;
+  background: rgba(3, 8, 16, 0.88);
+  border: 1px solid rgba(100, 255, 218, 0.22);
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-50%) translateY(16px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 32px rgba(100, 255, 218, 0.08),
+    0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.universe-node-hud.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Core Card */
+.hud-core-card {
+  padding: 20px 24px;
+  border-left: 3px solid #64ffda;
+}
+
+.hud-core-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.hud-core-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: #64ffda;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  margin-bottom: 14px;
+}
+
+.hud-core-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.hud-skill-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: 4px;
+  padding: 3px 9px;
+  letter-spacing: 0.06em;
+}
+
+.hud-core-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(100, 255, 218, 0.65);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Skill Card */
+.hud-skill-card {
+  padding: 18px 22px;
+  border-left: 3px solid #3b82f6;
+}
+
+.hud-skill-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.hud-skill-level {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: #64ffda;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.hud-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(100, 255, 218, 0.55);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.hud-used-in {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-used-in li {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.78);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.hud-used-in li::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #3b82f6;
+  flex-shrink: 0;
+}
+
+.hud-tech {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(59, 130, 246, 0.6);
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+  border-top: 1px solid rgba(59, 130, 246, 0.12);
+  padding-top: 10px;
+}
+
+/* ─────────────────────────────────────────────
+   Controls HUD
+───────────────────────────────────────────── */
+
+.universe-controls-hud {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 16px;
+  background: rgba(3, 8, 16, 0.72);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+.hud-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.hud-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.10);
+  border: 1px solid rgba(59, 130, 246, 0.30);
+  border-radius: 4px;
+  padding: 1px 6px;
+  min-width: 54px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────────
+   Exit Button
+───────────────────────────────────────────── */
+
+.universe-exit-btn {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(3, 8, 16, 0.70);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  backdrop-filter: blur(10px);
+  z-index: 20;
+}
+
+.universe-exit-btn:hover {
+  color: #ffffff;
+  border-color: rgba(100, 255, 218, 0.45);
+  background: rgba(100, 255, 218, 0.06);
+}
+
+.universe-exit-btn span {
+  font-size: 13px;
+  color: rgba(100, 255, 218, 0.7);
+}
+
+/* Back to Overview Button */
+.universe-back-btn {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #64ffda;
+  background: rgba(3, 8, 16, 0.75);
+  border: 1px solid rgba(100, 255, 218, 0.35);
+  border-radius: 6px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  z-index: 20;
+  animation: fade-in-down 0.4s ease;
+}
+
+.universe-back-btn:hover {
+  color: #ffffff;
+  border-color: rgba(100, 255, 218, 0.75);
+  background: rgba(100, 255, 218, 0.10);
+  transform: translateX(-2px);
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────────
+   Animations
+───────────────────────────────────────────── */
+
+@keyframes key-pulse {
+  0%, 100% { border-color: rgba(59, 130, 246, 0.45); box-shadow: 0 0 10px rgba(59,130,246,0.12); }
+  50%       { border-color: rgba(100, 255, 218, 0.6); box-shadow: 0 0 16px rgba(100,255,218,0.2); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1.0; }
+}

@@ -1,0 +1,298 @@
+/* ProjectsWindow.css */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Press+Start+2P&display=swap');
+
+.projects-win {
+  display: flex;
+  height: 100%;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.proj-sidebar {
+  width: 130px;
+  flex-shrink: 0;
+  background: #0d1117;
+  border-right: 1px solid #21262d;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.proj-sidebar-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #8b949e;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.proj-filter-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: #8b949e;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+.proj-filter-btn:hover { color: #c9d1d9; border-color: #30363d; }
+.proj-filter-btn.active.rarity-all { color: #e6edf3; border-color: #8b949e; background: #21262d; }
+.proj-filter-btn.active.rarity-legendary { color: #ffd700; border-color: #ffd700; background: #2a2000; }
+.proj-filter-btn.active.rarity-epic { color: #b060ff; border-color: #b060ff; background: #1a0a2e; }
+.proj-filter-btn.active.rarity-rare { color: #4da6ff; border-color: #4da6ff; background: #001a2e; }
+
+.proj-count {
+  margin-top: auto;
+  font-size: 10px;
+  color: #4a4a4a;
+}
+
+/* Grid area */
+.proj-grid-area {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.proj-card {
+  background: #0d1117;
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 14px 10px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  border-top-width: 3px;
+}
+
+.proj-card:hover { transform: translateY(-2px); }
+.proj-card.selected { background: #161b22; }
+
+.rarity-border-legendary { border-top-color: #ffd700; }
+.rarity-border-epic { border-top-color: #b060ff; }
+.rarity-border-rare { border-top-color: #4da6ff; }
+.rarity-border-common { border-top-color: #8b949e; }
+
+.proj-card-rarity { font-size: 9px; color: #4a4a4a; letter-spacing: 0.05em; }
+.proj-card-icon { font-size: 1.8rem; }
+.proj-card-name { font-size: 11px; color: #e6edf3; line-height: 1.3; }
+.proj-card-type { font-size: 10px; color: #8b949e; }
+
+/* Detail panel */
+.proj-detail {
+  background: #0d1117;
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 16px 20px;
+  border-left-width: 3px;
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rarity-detail-legendary { border-left-color: #ffd700; }
+.rarity-detail-epic { border-left-color: #b060ff; }
+.rarity-detail-rare { border-left-color: #4da6ff; }
+
+.proj-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.proj-detail-icon { font-size: 1.8rem; }
+.proj-detail-name { font-size: 15px; font-weight: 500; color: #e6edf3; }
+.proj-detail-rarity { font-size: 11px; margin-top: 2px; }
+
+.rarity-text-legendary { color: #ffd700; }
+.rarity-text-epic { color: #b060ff; }
+.rarity-text-rare { color: #4da6ff; }
+
+.proj-detail-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #8b949e;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+}
+
+.proj-detail-section { margin-bottom: 14px; }
+.proj-detail-label { font-size: 10px; color: #4a4a4a; letter-spacing: 0.1em; margin-bottom: 6px; }
+.proj-detail-desc { font-size: 13px; color: #8b949e; line-height: 1.6; margin: 0; }
+
+.proj-detail-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.proj-stack-tag {
+  background: #161b22;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.proj-detail-attrs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  font-size: 12px;
+  padding-top: 4px;
+  border-top: 1px solid #21262d;
+  margin-top: 4px;
+}
+
+.proj-attr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.proj-attr span:first-child { color: #4a4a4a; white-space: nowrap; }
+.proj-attr span:last-child { color: #e6edf3; font-weight: bold; white-space: nowrap; }
+.attr-green { color: #1eda60 !important; }
+
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+  .projects-win {
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* Collapse sidebar to a compact horizontal filter bar on mobile */
+  .proj-sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding: 8px 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: none;
+    border-bottom: 1px solid #21262d;
+    flex-shrink: 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .proj-sidebar::-webkit-scrollbar { display: none; }
+
+  .proj-sidebar-title {
+    display: none; /* hide INVENTORY label — no room */
+  }
+
+  .proj-count {
+    margin-top: 0;
+    margin-left: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .proj-filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  /* Grid + detail stacked vertically */
+  .proj-grid-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  /* 3-column compact grid on mobile */
+  .proj-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .proj-card {
+    padding: 10px 6px;
+    gap: 4px;
+  }
+
+  /* Make icon larger/more visible on mobile */
+  .proj-card-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .proj-card-name {
+    font-size: 10px;
+  }
+
+  .proj-card-type {
+    font-size: 9px;
+  }
+
+  .proj-card-rarity {
+    font-size: 8px;
+  }
+
+  /* Detail panel: full-width below the grid */
+  .proj-detail {
+    padding: 14px;
+    border-left-width: 1px;
+    border-top-width: 3px;
+  }
+
+  /* Re-use rarity top-border colors for the detail panel on mobile */
+  .rarity-detail-legendary { border-top-color: #ffd700; border-left-color: #ffd700; }
+  .rarity-detail-epic      { border-top-color: #b060ff; border-left-color: #b060ff; }
+  .rarity-detail-rare      { border-top-color: #4da6ff; border-left-color: #4da6ff; }
+
+  .proj-detail-name { font-size: 14px; }
+
+  .proj-detail-desc {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* Stack Difficulty / Status / Source as a column so nothing gets cut off */
+  .proj-detail-attrs {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .proj-attr {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 4px 0;
+    border-bottom: 1px solid #161b22;
+  }
+
+  .proj-attr:last-child {
+    border-bottom: none;
+  }
+
+  .proj-stack-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+}

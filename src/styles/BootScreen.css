@@ -1,0 +1,117 @@
+/* BootScreen.css */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
+
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease;
+}
+
+.boot-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 0, 0.015) 2px,
+    rgba(0, 255, 0, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.boot-content {
+  position: relative;
+  z-index: 2;
+  width: min(680px, 90vw);
+  padding: 2rem;
+}
+
+.boot-logo {
+  font-family: 'VT323', monospace;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: #00ff41;
+  letter-spacing: 0.15em;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.boot-logo-bracket {
+  color: #005f1a;
+}
+
+.boot-logo-accent {
+  color: #41ff00;
+}
+
+.boot-terminal {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(12px, 1.8vw, 14px);
+  color: #00c832;
+  line-height: 1.8;
+  min-height: 280px;
+}
+
+.boot-line {
+  opacity: 0;
+  animation: lineAppear 0.15s ease forwards;
+}
+
+.boot-line.highlight {
+  color: #ffffff;
+  font-size: 1.1em;
+  margin-top: 0.5rem;
+}
+
+@keyframes lineAppear {
+  from { opacity: 0; transform: translateX(-4px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.boot-cursor {
+  display: inline-block;
+  color: #00ff41;
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.boot-enter {
+  margin-top: 2rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  color: #005f1a;
+  text-align: center;
+  cursor: pointer;
+  animation: pulse 1.2s ease-in-out infinite;
+  transition: color 0.2s;
+}
+
+.boot-enter:hover {
+  color: #00ff41;
+}
+
+.boot-enter span {
+  color: #00ff41;
+  border: 1px solid #00ff41;
+  padding: 1px 8px;
+  margin: 0 4px;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}

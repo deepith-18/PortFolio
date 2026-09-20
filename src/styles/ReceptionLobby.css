@@ -1,0 +1,419 @@
+/* src/styles/ReceptionLobby.css */
+/* Phase 1 — Reception Lobby  */
+/* Design language: Apple · Notion · Linear — dark, minimal, premium */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ────────────────────────────────────────────────────
+   CONTAINER
+──────────────────────────────────────────────────── */
+
+.lobby-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #050a12;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ────────────────────────────────────────────────────
+   CANVAS
+──────────────────────────────────────────────────── */
+
+.lobby-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ────────────────────────────────────────────────────
+   ATMOSPHERIC OVERLAYS
+──────────────────────────────────────────────────── */
+
+/* Vignette — darkens corners to frame the scene */
+.lobby-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 50%,
+      transparent 38%,
+      rgba(5, 10, 18, 0.55) 72%,
+      rgba(5, 10, 18, 0.88) 100%),
+    radial-gradient(ellipse 60% 35% at 50% 100%,
+      rgba(5, 10, 18, 0.90) 0%,
+      transparent 70%);
+}
+
+/* Ground fog — bottom of the canvas */
+.lobby-ground-fog {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 22%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(5, 10, 18, 0.80) 0%,
+    transparent 100%
+  );
+}
+
+/* ────────────────────────────────────────────────────
+   UI LAYER
+──────────────────────────────────────────────────── */
+
+.lobby-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  padding-top: clamp(52px, 9vh, 100px);
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  /* entry animation */
+  animation: lobby-fadein 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* When zoom is triggered, fade UI out */
+.lobby-ui--zooming {
+  opacity: 0;
+  transform: translateY(-12px) scale(0.98);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  pointer-events: none;
+}
+
+@keyframes lobby-fadein {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ────────────────────────────────────────────────────
+   EYEBROW
+──────────────────────────────────────────────────── */
+
+.lobby-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(100, 255, 218, 0.75);
+  margin-bottom: 14px;
+}
+
+.lobby-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #64ffda;
+  animation: lobby-blink 2.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes lobby-blink {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 1.0; }
+}
+
+/* ────────────────────────────────────────────────────
+   TITLE
+──────────────────────────────────────────────────── */
+
+.lobby-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(36px, 6vw, 78px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  line-height: 1;
+  text-shadow:
+    0 0 60px rgba(59, 130, 246, 0.30),
+    0 0 120px rgba(59, 130, 246, 0.12);
+}
+
+/* ────────────────────────────────────────────────────
+   ROLE
+──────────────────────────────────────────────────── */
+
+.lobby-role {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1.8vw, 18px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.50);
+  margin: 0 0 14px 0;
+}
+
+/* ────────────────────────────────────────────────────
+   TAGLINE
+──────────────────────────────────────────────────── */
+
+.lobby-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1.5vw, 16px);
+  font-weight: 400;
+  line-height: 1.60;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0 0 30px 0;
+  max-width: 360px;
+}
+
+/* ────────────────────────────────────────────────────
+   ENTER BUTTON
+──────────────────────────────────────────────────── */
+
+.lobby-enter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  background: transparent;
+  border: 1.5px solid rgba(59, 130, 246, 0.65);
+  border-radius: 8px;
+  padding: 14px 34px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.28s ease,
+    color 0.22s ease,
+    box-shadow 0.28s ease,
+    transform 0.18s ease;
+  /* subtle shine / glow behind */
+  box-shadow:
+    0 0 32px rgba(59, 130, 246, 0.12),
+    inset 0 0 20px rgba(59, 130, 246, 0.04);
+  /* animation entry delay */
+  animation: lobby-fadein 1.6s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Fill sweep on hover */
+.lobby-enter-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.14) 0%,
+    rgba(100, 255, 218, 0.07) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  border-radius: 7px;
+}
+
+.lobby-enter-btn:hover::before  { opacity: 1; }
+
+.lobby-enter-btn:hover {
+  border-color: rgba(100, 255, 218, 0.70);
+  color: #ffffff;
+  box-shadow:
+    0 0 44px rgba(59, 130, 246, 0.24),
+    0 0 80px rgba(100, 255, 218, 0.08),
+    inset 0 0 20px rgba(59, 130, 246, 0.08);
+  transform: translateY(-2px);
+}
+
+.lobby-enter-btn:active {
+  transform: translateY(0px);
+}
+
+.lobby-enter-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  transform: none;
+}
+
+.lobby-enter-icon {
+  font-size: 16px;
+  transition: transform 0.25s ease;
+}
+
+.lobby-enter-btn:hover .lobby-enter-icon {
+  transform: translateX(3px);
+}
+
+/* ────────────────────────────────────────────────────
+   HINT TEXT
+──────────────────────────────────────────────────── */
+
+.lobby-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.10em;
+  color: rgba(255, 255, 255, 0.20);
+  margin-top: 16px;
+  animation: lobby-fadein 2.0s 0.8s ease both;
+}
+
+/* ────────────────────────────────────────────────────
+   EXIT BUTTON
+──────────────────────────────────────────────────── */
+
+.lobby-exit-btn {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.35);
+  background: rgba(5, 10, 18, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  backdrop-filter: blur(12px);
+  z-index: 20;
+}
+
+.lobby-exit-btn:hover {
+  color: #ffffff;
+  border-color: rgba(100, 255, 218, 0.40);
+  background: rgba(100, 255, 218, 0.05);
+}
+
+.lobby-exit-btn span {
+  font-size: 12px;
+  color: rgba(100, 255, 218, 0.65);
+}
+
+/* ────────────────────────────────────────────────────
+   COMING SOON OVERLAY (after zoom)
+──────────────────────────────────────────────────── */
+
+.lobby-coming-soon {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: rgba(5, 10, 18, 0.82);
+  backdrop-filter: blur(8px);
+  animation: lobby-fadein 0.6s ease both;
+}
+
+.lobby-coming-soon-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 32px 48px;
+  background: rgba(13, 27, 46, 0.75);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 0 60px rgba(59, 130, 246, 0.10);
+  backdrop-filter: blur(20px);
+}
+
+.lobby-coming-soon-icon {
+  font-size: 36px;
+  margin-bottom: 4px;
+}
+
+.lobby-coming-soon-text {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(16px, 2.2vw, 22px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.lobby-coming-soon-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(100, 255, 218, 0.65);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lobby-back-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.50);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lobby-back-btn:hover {
+  color: #ffffff;
+  border-color: rgba(100, 255, 218, 0.45);
+}
+
+/* ────────────────────────────────────────────────────
+   RESPONSIVE — MOBILE
+──────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .lobby-ui {
+    padding: 20px 16px;
+  }
+
+  .lobby-eyebrow {
+    font-size: 10px;
+    margin-bottom: 18px;
+  }
+
+  .lobby-title {
+    font-size: 40px;
+    letter-spacing: 0.05em;
+  }
+
+  .lobby-role {
+    font-size: 14px;
+  }
+
+  .lobby-tagline {
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+
+  .lobby-enter-btn {
+    padding: 13px 28px;
+    font-size: 14px;
+  }
+
+  .lobby-coming-soon-badge {
+    padding: 24px 28px;
+    margin: 0 16px;
+  }
+}
