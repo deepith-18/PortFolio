@@ -24,7 +24,9 @@ import {
   FaLaptopCode,
   FaGamepad,
   FaDocker,
-  FaLayerGroup
+  FaLayerGroup,
+  FaInstagram,
+  FaTwitter
 } from 'react-icons/fa';
 import { SiKubernetes } from 'react-icons/si';
 import '../styles/MainPortfolio.css';
@@ -1240,20 +1242,124 @@ export default function MainPortfolio({ onEnterWorkshop, onEnterOS, theme, setTh
         </div>
       </section>
 
-      {/* ── Footer ── */}
+      {/* ── Real-World Tech Footer ── */}
       <footer className="mp-footer">
-        <div className="mp-container mp-footer-inner">
-          <div className="footer-left">
-            <span className="footer-brand">Deepith N</span>
-            <p>© {new Date().getFullYear()} Deepith N • Built with React & modern web standards.</p>
+        <div className="mp-container">
+          <div className="mp-footer-main">
+            {/* Column 1: Brand & Philosophy */}
+            <div className="mp-footer-col mp-footer-brand-col">
+              <div className="mp-footer-brand-heading">
+                <span className="footer-brand-title">Deepith N</span>
+                <span className="footer-brand-badge">PORTFOLIO</span>
+              </div>
+              <p className="mp-footer-tagline">
+                Computer Science & Engineering graduate specialized in building scalable full-stack applications, intelligent AI systems, and robust software architectures.
+              </p>
+              <div className="mp-footer-location">
+                <span className="location-dot"></span> Bengaluru, India • Open for Full-time Roles
+              </div>
+            </div>
+
+            {/* Column 2: Quick Links */}
+            <div className="mp-footer-col">
+              <h4 className="mp-footer-title">Navigation</h4>
+              <ul className="mp-footer-nav">
+                <li><button onClick={() => scrollToSection('about')}>About Me</button></li>
+                <li><button onClick={() => scrollToSection('skills')}>Technical Skills</button></li>
+                <li><button onClick={() => scrollToSection('projects')}>Featured Projects ({PROJECTS.length})</button></li>
+                <li><button onClick={() => scrollToSection('opensource')}>Open Source Contributions</button></li>
+                <li><button onClick={() => scrollToSection('certifications')}>Education & Credentials</button></li>
+                <li><button onClick={() => scrollToSection('contact')}>Get In Touch</button></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Interactive Experiences */}
+            <div className="mp-footer-col">
+              <h4 className="mp-footer-title">Experiences</h4>
+              <ul className="mp-footer-nav">
+                <li>
+                  <button onClick={onEnterWorkshop} className="footer-exp-btn">
+                    <FaGamepad className="footer-exp-icon" /> 3D Virtual Workshop
+                  </button>
+                </li>
+                <li>
+                  <button onClick={onEnterOS} className="footer-exp-btn">
+                    <FaDesktop className="footer-exp-icon" /> Hyprland OS Mode
+                  </button>
+                </li>
+                <li>
+                  <a href="/DeepithN.pdf" target="_blank" rel="noreferrer" className="footer-exp-btn">
+                    <FaFilePdf className="footer-exp-icon" /> Download Resume
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:deepithdeekshith@gmail.com" className="footer-exp-btn">
+                    <FaEnvelope className="footer-exp-icon" /> Direct Email
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 4: Social Channels */}
+            <div className="mp-footer-col">
+              <h4 className="mp-footer-title">Connect & Socials</h4>
+              <p className="mp-footer-social-desc">Follow my journey, connect professionally, or collaborate on open-source:</p>
+              <div className="mp-footer-socials">
+                <a
+                  href="https://www.linkedin.com/in/deepithn1718/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="footer-social-link linkedin"
+                  title="LinkedIn - deepithn1718"
+                >
+                  <FaLinkedin />
+                  <span>LinkedIn</span>
+                </a>
+                <a
+                  href="https://github.com/deepith-18"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="footer-social-link github"
+                  title="GitHub - deepith-18"
+                >
+                  <FaGithub />
+                  <span>GitHub</span>
+                </a>
+                <a
+                  href="https://www.instagram.com/deepithn/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="footer-social-link instagram"
+                  title="Instagram - @deepithn"
+                >
+                  <FaInstagram />
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href="https://x.com/DeepithD19"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="footer-social-link twitter"
+                  title="X / Twitter - @DeepithD19"
+                >
+                  <FaTwitter />
+                  <span>Twitter / X</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="footer-right">
+
+          {/* Bottom Sub-Bar */}
+          <div className="mp-footer-bottom">
+            <div className="mp-footer-copy">
+              © {new Date().getFullYear()} Deepith N. All rights reserved. Designed & built with React, Three.js & modern web standards.
+            </div>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="footer-back-to-top"
+              className="mp-footer-back-top"
               title="Back to Top"
             >
-              <FaArrowUp /> Top
+              Back to Top <FaArrowUp />
             </button>
           </div>
         </div>
