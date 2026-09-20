@@ -57,15 +57,16 @@ export default function WorkshopScene() {
   }, [activeZone, panelOpen]);
 
   return (
-    <div style={{ width: '100vw', height: '100vh', position: 'absolute', top: 0, left: 0 }}>
+    <div style={{ width: '100vw', height: '100vh', position: 'absolute', top: 0, left: 0, touchAction: 'none' }}>
       {/* Background Blur when panel is open */}
       <div className={`workshop-blur ${panelOpen ? 'active' : ''}`} />
 
       <Canvas 
         shadows={!isMobile} 
-        dpr={isMobile ? Math.min(window.devicePixelRatio, 2) : [1, 2]} 
+        dpr={isMobile ? Math.min(window.devicePixelRatio, 1.3) : [1, 2]} 
         gl={{ 
-          antialias: true,
+          antialias: !isMobile,
+          powerPreference: 'high-performance',
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: isDarkMode ? 1.15 : 1.05
         }}
@@ -80,12 +81,14 @@ export default function WorkshopScene() {
       </Canvas>
 
       {/* UI Overlays */}
-      {isMobile && !panelOpen && <MobileJoystick />}
+      {isMobile && !panelOpen && (
+        <MobileJoystick onInteract={handleInteract} activeZone={activeZone} />
+      )}
       
-      {!panelOpen && (
+      {!isMobile && !panelOpen && (
         <InteractPrompt 
           activeZone={activeZone} 
-          isMobile={isMobile} 
+          isMobile={false} 
           onInteract={handleInteract} 
         />
       )}

@@ -1,10 +1,11 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import MainPortfolio from './components/MainPortfolio';
-import Desktop from './components/Desktop';
-import Taskbar from './components/Taskbar';
-import WorkshopApp from './workshop/WorkshopApp';
-import CreativeEntry from './creative/routes/CreativeEntry';
 import './App.css';
+
+const Desktop = lazy(() => import('./components/Desktop'));
+const Taskbar = lazy(() => import('./components/Taskbar'));
+const WorkshopApp = lazy(() => import('./workshop/WorkshopApp'));
+const CreativeEntry = lazy(() => import('./creative/routes/CreativeEntry'));
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(() => window.location.pathname);

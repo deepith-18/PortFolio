@@ -1,11 +1,17 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
-// Global state for joystick to avoid re-rendering React on every frame
-export const joystickState = { forward: 0, right: 0 };
+// Global state for joystick and mobile controls to avoid re-rendering R3F on every frame
+export const joystickState = { 
+  forward: 0, 
+  right: 0, 
+  sprint: 1, 
+  resetLookRequested: false 
+};
 
-export default function MobileJoystick() {
+export default function MobileJoystick({ onInteract, activeZone }) {
   const baseRef = useRef(null);
   const stickRef = useRef(null);
+  const [isSprinting, setIsSprinting] = useState(false);
 
   useEffect(() => {
     const base = baseRef.current;
@@ -14,74 +20,148 @@ export default function MobileJoystick() {
 
     let active = false;
     let identifier = null;
+    const maxDistance = 45; // Max pixels the stick moves from center
 
-    const maxDistance = 40; // Max pixels the stick can move from center
-
-    const handleStart = (e) => {
-      // Prevent default to stop scrolling
-      e.preventDefault();
-      active = true;
-      identifier = e.pointerId;
-      updateStick(e);
-    };
-
-    const handleMove = (e) => {
-      if (!active || e.pointerId !== identifier) return;
-      e.preventDefault();
-      updateStick(e);
-    };
-
-    const handleEnd = (e) => {
-      if (e.pointerId !== identifier) return;
-      e.preventDefault();
-      active = false;
-      identifier = null;
-      
-      // Reset stick visually
-      stick.style.transform = `translate(-50%, -50%)`;
-      // Reset state
-      joystickState.forward = 0;
-      joystickState.right = 0;
-    };
-
-    const updateStick = (e) => {
+    const updateStick = (clientX, clientY) => {
       const rect = base.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
-      let dx = e.clientX - centerX;
-      let dy = e.clientY - centerY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+      let dx = clientX - centerX;
+      let dy = clientY - centerY;
+      const distance = Math.hypot(dx, dy);
 
       if (distance > maxDistance) {
         dx = (dx / distance) * maxDistance;
         dy = (dy / distance) * maxDistance;
       }
 
-      stick.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+      stick.style.transform = `translate(${dx}px, ${dy}px)`;
 
-      // Normalize to [-1, 1]
-      // Forward is negative Y in screen space
+      // Normalize [-1, 1]
       joystickState.right = dx / maxDistance;
-      joystickState.forward = -(dy / maxDistance); 
+      joystickState.forward = -(dy / maxDistance);
     };
 
-    base.addEventListener('pointerdown', handleStart, { passive: false });
-    window.addEventListener('pointermove', handleMove, { passive: false });
-    window.addEventListener('pointerup', handleEnd, { passive: false });
-    window.addEventListener('pointercancel', handleEnd, { passive: false });
+    const handlePointerDown = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      active = true;
+      identifier = e.pointerId;
+      try {
+        base.setPointerCapture(e.pointerId);
+      } catch {}
+      updateStick(e.clientX, e.clientY);
+    };
+
+    const handlePointerMove = (e) => {
+      if (!active || e.pointerId !== identifier) return;
+      e.preventDefault();
+      e.stopPropagation();
+      updateStick(e.clientX, e.clientY);
+    };
+
+    const handlePointerUp = (e) => {
+      if (e.pointerId !== identifier && active) return;
+      e.preventDefault();
+      e.stopPropagation();
+      active = false;
+      identifier = null;
+
+      try {
+        base.releasePointerCapture(e.pointerId);
+      } catch {}
+
+      stick.style.transform = `translate(0px, 0px)`;
+      joystickState.forward = 0;
+      joystickState.right = 0;
+    };
+
+    base.addEventListener('pointerdown', handlePointerDown);
+    base.addEventListener('pointermove', handlePointerMove);
+    base.addEventListener('pointerup', handlePointerUp);
+    base.addEventListener('pointercancel', handlePointerUp);
 
     return () => {
-      base.removeEventListener('pointerdown', handleStart);
-      window.removeEventListener('pointermove', handleMove);
-      window.removeEventListener('pointerup', handleEnd);
-      window.removeEventListener('pointercancel', handleEnd);
+      base.removeEventListener('pointerdown', handlePointerDown);
+      base.removeEventListener('pointermove', handlePointerMove);
+      base.removeEventListener('pointerup', handlePointerUp);
+      base.removeEventListener('pointercancel', handlePointerUp);
     };
   }, []);
 
+  const toggleSprint = () => {
+    setIsSprinting(prev => {
+      const next = !prev;
+      joystickState.sprint = next ? 1.85 : 1.0;
+      return next;
+    });
+  };
+
+  const handleResetLook = () => {
+    joystickState.resetLookRequested = true;
+    setTimeout(() => {
+      joystickState.resetLookRequested = false;
+    }, 100);
+  };
+
   return (
-    <div className="mobile-joystick-base" ref={baseRef}>
-      <div className="mobile-joystick-stick" ref={stickRef}></div>
+    <div className="mobile-controls-overlay">
+      {/* ── Virtual Joystick (Bottom Left) ── */}
+      <div className="mobile-joystick-container">
+        <div className="mobile-joystick-base" ref={baseRef}>
+          <div className="joystick-ring-decor">
+            <span className="joystick-arrow arrow-n">▲</span>
+            <span className="joystick-arrow arrow-e">►</span>
+            <span className="joystick-arrow arrow-s">▼</span>
+            <span className="joystick-arrow arrow-w">◄</span>
+          </div>
+          <div className="mobile-joystick-stick" ref={stickRef}>
+            <div className="stick-inner-glow" />
+          </div>
+        </div>
+        <div className="joystick-label">DRAG TO MOVE</div>
+      </div>
+
+      {/* ── Action Buttons (Bottom Right) ── */}
+      <div className="mobile-action-buttons">
+        {/* Sprint / Speed Boost */}
+        <button 
+          className={`mobile-action-btn sprint-btn ${isSprinting ? 'active' : ''}`}
+          onClick={toggleSprint}
+          title="Toggle Sprint"
+        >
+          <span className="action-btn-icon">⚡</span>
+          <span className="action-btn-text">{isSprinting ? 'FAST' : 'WALK'}</span>
+        </button>
+
+        {/* Reset Camera Look */}
+        <button 
+          className="mobile-action-btn reset-btn"
+          onClick={handleResetLook}
+          title="Reset Camera Angle"
+        >
+          <span className="action-btn-icon">🎯</span>
+          <span className="action-btn-text">RESET</span>
+        </button>
+
+        {/* Interact / Inspect Station Button */}
+        {activeZone && (
+          <button 
+            className="mobile-action-btn interact-btn pulse-action"
+            onClick={onInteract}
+            title="Inspect Station"
+          >
+            <span className="action-btn-icon">🔍</span>
+            <span className="action-btn-text">INSPECT</span>
+          </button>
+        )}
+      </div>
+
+      {/* Hint for touch-look */}
+      <div className="mobile-touch-hint">
+        <span>Touch right screen to rotate view</span>
+      </div>
     </div>
   );
 }

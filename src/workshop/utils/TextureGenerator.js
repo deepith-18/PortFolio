@@ -7,21 +7,27 @@ export function getWoodTexture() {
   if (woodTextureCache) return woodTextureCache;
 
   const canvas = document.createElement('canvas');
-  canvas.width = 512;
-  canvas.height = 512;
+  canvas.width = 128;
+  canvas.height = 128;
   const ctx = canvas.getContext('2d');
 
-  // Simple procedural wood grain
-  ctx.fillStyle = '#4a3625';
-  ctx.fillRect(0, 0, 512, 512);
+  ctx.fillStyle = '#423020';
+  ctx.fillRect(0, 0, 128, 128);
 
-  for (let i = 0; i < 512; i += 4) {
-    ctx.fillStyle = `rgba(0,0,0,${Math.random() * 0.1})`;
-    ctx.beginPath();
-    ctx.moveTo(0, i + Math.random() * 10);
-    ctx.bezierCurveTo(256, i + Math.random() * 20, 256, i - Math.random() * 20, 512, i + Math.random() * 10);
-    ctx.stroke();
+  const imgData = ctx.getImageData(0, 0, 128, 128);
+  const data = imgData.data;
+
+  for (let y = 0; y < 128; y++) {
+    const grain = Math.sin(y * 0.16) * 10 + (Math.random() - 0.5) * 12;
+    for (let x = 0; x < 128; x++) {
+      const idx = (y * 128 + x) * 4;
+      data[idx] = Math.min(255, Math.max(0, 68 + grain));
+      data[idx + 1] = Math.min(255, Math.max(0, 48 + grain * 0.7));
+      data[idx + 2] = Math.min(255, Math.max(0, 32 + grain * 0.5));
+      data[idx + 3] = 255;
+    }
   }
+  ctx.putImageData(imgData, 0, 0);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
@@ -34,19 +40,24 @@ export function getConcreteTexture() {
   if (concreteTextureCache) return concreteTextureCache;
 
   const canvas = document.createElement('canvas');
-  canvas.width = 512;
-  canvas.height = 512;
+  canvas.width = 128;
+  canvas.height = 128;
   const ctx = canvas.getContext('2d');
 
-  ctx.fillStyle = '#2a2a2a';
-  ctx.fillRect(0, 0, 512, 512);
+  ctx.fillStyle = '#22252a';
+  ctx.fillRect(0, 0, 128, 128);
 
-  for (let i = 0; i < 10000; i++) {
-    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.05})`;
-    ctx.fillRect(Math.random() * 512, Math.random() * 512, 2, 2);
-    ctx.fillStyle = `rgba(0,0,0,${Math.random() * 0.1})`;
-    ctx.fillRect(Math.random() * 512, Math.random() * 512, 2, 2);
+  const imgData = ctx.getImageData(0, 0, 128, 128);
+  const data = imgData.data;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const noise = (Math.random() - 0.5) * 20;
+    data[i] = Math.min(255, Math.max(0, 35 + noise));
+    data[i + 1] = Math.min(255, Math.max(0, 37 + noise));
+    data[i + 2] = Math.min(255, Math.max(0, 42 + noise));
+    data[i + 3] = 255;
   }
+  ctx.putImageData(imgData, 0, 0);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
